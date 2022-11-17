@@ -35,7 +35,7 @@ export default defineComponent({
     </div>
   </nav>
 
-  <div class="container-lg" style="">
+  <div class="container-md" style="">
 
     <RouterView />
 
