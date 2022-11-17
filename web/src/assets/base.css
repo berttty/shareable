@@ -75,36 +75,45 @@ body {
 
 .yellow{
   /*background: #FDFDBD !important;*/
-  background: rgba(253,253,189, 0.2) !important;
+  background: rgba(253,253,189, 0.4) !important;
   color: #000000 !important;
 }
 
 .green{
   /*background: #C8FFD4 !important;*/
-  background: rgba(200,255,212, 0.2) !important;
+  background: rgba(200,255,212, 0.4) !important;
   color: #000000 !important;
 }
 
 .blue{
   /*background: #B8E8FC !important;*/
-  background: rgba(184,232,252, 0.2) !important;
+  background: rgba(184,232,252, 0.4) !important;
   color: #000000 !important;
 }
 
 .purple{
   /*background: #B1AFFF !important;*/
-  background: rgba(177,175,255, 0.2) !important;
+  background: rgba(177,175,255, 0.4) !important;
   color: #000000 !important;
 }
 
 .red{
   /*background: #F7A4A4 !important;*/
-  background: rgba(247,164,164, 0.2) !important;
+  background: rgba(247,164,164, 0.4) !important;
   color: #000000 !important;
 }
 
 .orange{
   /*background: #FEBE8C !important;*/
-  background: rgba(254,190,140, 0.2) !important;
+  background: rgba(254,190,140, 0.4) !important;
   color: #000000 !important;
+}
+
+.nav-tabs>.nav-item>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+  border-color: #d45500 ;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #d45500;
 }
