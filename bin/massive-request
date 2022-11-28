@@ -1,0 +1,7 @@
+#!/bin/sh
+date
+for i in $(seq 0 100);
+do
+  curl -s -X GET  http://localhost:8080/memory 2>&1 > /dev/null
+done
+date

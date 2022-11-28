@@ -3,12 +3,10 @@
     <div class="col-md-6 align-self-center">
       <div class="card">
         <div class="card-header">
-          <h3>query 4: Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
+          <h3>{{query}}</h3>
         </div>
         <div class="card-body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a purus fermentum, lobortis urna eget, posuere lacus. Aliquam erat volutpat. Suspendisse mauris lorem, dapibus eget urna ut, dignissim hendrerit metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam sit amet libero tempus, euismod erat ac, efficitur ipsum. Nulla vitae placerat felis. Etiam ex tortor, pulvinar vel fermentum in, iaculis nec lorem. Praesent sollicitudin rutrum pulvinar. Ut rhoncus ligula sed elit iaculis, eget feugiat velit blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eleifend id elit tempor blandit.
-
-          Pellentesque ac mi diam. Etiam purus eros, cursus nec arcu aliquam, semper dapibus purus. Suspendisse cursus vulputate dui, eu blandit sem posuere dapibus. In at fermentum quam. Suspendisse quis consectetur neque. Vestibulum gravida diam metus, vel placerat tortor placerat in. Suspendisse auctor tortor nisl, eget hendrerit dolor.
+          {{answer}}
         </div>
         <div class="card-footer ">
           <div class="d-flex justify-content-between">
@@ -28,6 +26,22 @@
   </div>
 
 </template>
+
+<script lang="ts" setup>
+import axios from "axios";
+import {onMounted, ref} from "vue";
+
+let answer = ref();
+let query = ref();
+
+// initialize menu tree
+onMounted(async () => {
+  const { data } = await axios.get("/app/memory",);
+  console.log("data: " + JSON.stringify(data));
+  answer.value = data.answer;
+  query.value = data.questions;
+});
+</script>
 
 <style>
 @media (min-width: 1024px) {
