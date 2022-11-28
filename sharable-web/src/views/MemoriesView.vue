@@ -87,7 +87,6 @@ export default defineComponent({
       axios.get("/app/memory/"+id,).then(
           response => {
             this.question = response.data;
-            console.log(response.data);
           }
       );
       this.comment = '';
@@ -103,7 +102,6 @@ export default defineComponent({
       let id: string = this.question.id;
       axios.post("/app/memory/"+id+"/comment", params).then(
           response => {
-            console.log("response: " + JSON.stringify(response));
             this.question.comments = response.data.comments;
           }
       )
@@ -112,7 +110,6 @@ export default defineComponent({
       let id: string = this.question.id;
       axios.post("/app/memory/"+id+"/counter/"+button, ).then(
           response => {
-            console.log("response: " + JSON.stringify(response));
             this.question = response.data;
           }
       )

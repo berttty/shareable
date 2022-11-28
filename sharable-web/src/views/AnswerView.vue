@@ -20,7 +20,6 @@ export default defineComponent({
     getQuestion(){
       axios.get("/app/question/",).then(
           response => {
-            console.log("data: " + JSON.stringify(response.data));
             this.question = response.data;
           }
       )
@@ -42,7 +41,6 @@ export default defineComponent({
       }
       axios.post("/app/memory/", params).then(
           response => {
-            console.log("response: " + JSON.stringify(response));
             router.push("/memories/"+response.data.id);
           }
       )
