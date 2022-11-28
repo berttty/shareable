@@ -12,7 +12,7 @@ public class Memory implements Serializable {
 
   @Id
   private String id;
-  private String questions;
+  private Question question;
   private String Answer;
   private Date timestamp;
   private List<Comment> comments;
@@ -29,12 +29,13 @@ public class Memory implements Serializable {
     return this;
   }
 
-  public String getQuestions() {
-    return questions;
+  public Question getQuestion() {
+    return question;
   }
 
-  public Memory setQuestions(String questions) {
-    this.questions = questions;
+  public Memory setQuestion(
+      Question question) {
+    this.question = question;
     return this;
   }
 

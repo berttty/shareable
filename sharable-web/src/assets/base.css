@@ -109,6 +109,12 @@ body {
   color: #000000 !important;
 }
 
+.white{
+  /*background: #FEBE8C !important;*/
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+
 .nav-tabs>.nav-item>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
   border-color: #d45500 ;
   border-bottom-color: transparent;

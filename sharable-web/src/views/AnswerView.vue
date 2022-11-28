@@ -1,44 +1,56 @@
-<script setup lang="ts">
-import { defineComponent } from 'vue'
-import {getRandomInt} from '../utils/random'
+<script lang="ts">
+import axios from "axios";
+import {defineComponent} from "vue";
 
-export interface Props {
-  question?: string
-  counter?: number
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  question: () => {
-    //TODO recovery from database
-    let queries: string[] = [
-      'query 1: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 2: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 3: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 4: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 5: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 6: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 7: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 8: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 9: Lorem ipsum dolor sit amet, consectetur adipiscing?',
-      'query 0: Lorem ipsum dolor sit amet, consectetur adipiscing?'];
-    return queries[getRandomInt(queries.length)];
+export default defineComponent({
+  data() {
+    return {
+      answer: String,
+      counter: 240,
+      question: {},
+      questions: []
+    }
   },
-  counter: 1000
+  methods: {
+    save() {
+      let params = {
+        'question' : this.question,
+        'answer' : this.answer,
+        'time': Date.now(),
+      }
+      axios.post("/app/memory/", params).then(
+          response => {
+            console.log("response: " + JSON.stringify(response));
+          }
+      )
+    }
+  },
+  mounted() {
+    axios.get("/app/question/",).then(
+        response => {
+          console.log("data: " + JSON.stringify(response.data));
+          this.question = response.data;
+        }
+    )
+  }
 })
+
 </script>
 
 <template>
   <div class="row justify-content-center">
     <div class="col-md-6 align-self-center">
       <div class="p-2">
-        <h1>{{question}}</h1>
+        <h1>{{question['question']}}</h1>
         <form class="mt-2">
           <div class="form-check ps-0">
-            <label for="exampleInputPassword1" class="form-label">Write your mind you have {{ counter }} characters</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+
+            <label for="question" class="form-label">Write your mind you have {{ counter }} characters</label>
+            <textarea class="form-control" id="question" v-model="answer" rows="10" placeholder="Please answer the question" required></textarea>
+
           </div>
           <div class="d-grid gap-2 pt-2">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" @click="save()">Submit</button>
           </div>
         </form>
       </div>

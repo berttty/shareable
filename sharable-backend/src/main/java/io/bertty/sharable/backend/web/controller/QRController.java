@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController(value = "qr")
 @RequestMapping("/qr/")
-
 public class QRController {
 
   @Autowired
@@ -44,7 +43,7 @@ public class QRController {
   }
 
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Boolean> addLocation(@PathVariable String qrId){
+  public ResponseEntity<Boolean> deleteLocation(@PathVariable String qrId){
     this.repository.deleteById(qrId);
     return ResponseEntity.ok(true);
   }

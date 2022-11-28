@@ -7,12 +7,15 @@ import {getRandomInt} from './utils/random'
 export default defineComponent({
   name: 'Home',
   mounted() {
-    let colors: string[] = ['yellow',
-      'green',
-      'blue',
-      'purple',
-      'red',
-      'orange'];
+    let colors: string[] = [
+      // 'yellow',
+      // 'green',
+      // 'blue',
+      // 'purple',
+      // 'red',
+      // 'orange'
+        'white'
+    ];
     document.body.classList.add(colors[getRandomInt(colors.length)]);
   },
 });
