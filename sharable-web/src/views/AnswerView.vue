@@ -17,6 +17,14 @@ export default defineComponent({
     }
   },
   methods: {
+    getQuestion(){
+      axios.get("/app/question/",).then(
+          response => {
+            console.log("data: " + JSON.stringify(response.data));
+            this.question = response.data;
+          }
+      )
+    },
     save() {
       let params = {
         'question' : this.question,
@@ -37,18 +45,22 @@ export default defineComponent({
       self.counter = self.max - self.answer.length;
     });
 
-    axios.get("/app/question/",).then(
-        response => {
-          console.log("data: " + JSON.stringify(response.data));
-          this.question = response.data;
-        }
-    )
+    this.getQuestion();
   }
 })
 
 </script>
 
 <template>
+  <div class="row justify-content-center">
+    <div class="col-md-6 align-self-center m-4">
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success" @click="getQuestion()">
+          <i class="bi bi-arrow-clockwise"> Other Question</i>
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="row justify-content-center">
     <div class="col-md-6 align-self-center">
       <div class="p-2">
