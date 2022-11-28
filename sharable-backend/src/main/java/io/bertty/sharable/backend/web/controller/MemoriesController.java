@@ -76,8 +76,8 @@ public class MemoriesController {
     String key;
     do {
       key = this.redisTemplate.randomKey();
-      if(key.length() < 7) {
-        this.logger.info("searching for:" + key);
+      if(!key.startsWith("Memory")){
+        key="";
       }
     }while(key.length() < 7);
     key = key.substring(7);

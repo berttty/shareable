@@ -35,7 +35,7 @@ let answer = ref();
 let query = ref();
 
 onMounted(async () => {
-  const { data } = await axios.get("/app/memory",);
+  const { data } = await axios.get("/app/memory/",);
   console.log("data: " + JSON.stringify(data));
   answer.value = data.answer;
   query.value = data.questions;

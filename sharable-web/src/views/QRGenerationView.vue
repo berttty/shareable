@@ -115,7 +115,7 @@ export default defineComponent({
     },
     generateLink(seed:string){
       //TODO recovery the host from variables
-      return "http://lala.com/"+seed;
+      return "https://www.google.com/search?q="+seed;
     }
   },
   mounted() {

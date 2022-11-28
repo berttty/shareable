@@ -2,10 +2,13 @@ package io.bertty.sharable.backend.persistence.model;
 
 
 import java.util.Date;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash("QRLocation")
 public class QRLocation {
+
+  @Id
   public String id;
 
   public String name;
