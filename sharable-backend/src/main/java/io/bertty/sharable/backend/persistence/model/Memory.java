@@ -19,6 +19,10 @@ public class Memory implements Serializable {
   private String token;
   private List<Comment> comments;
 
+  private int i_like_it = 0;
+  private int make_me_meditate = 0;
+  private int so_sad = 0;
+
   public Memory() {
   }
 
@@ -90,6 +94,46 @@ public class Memory implements Serializable {
 
   public Memory setToken(String token) {
     this.token = token;
+    return this;
+  }
+
+  public int getI_like_it() {
+    return i_like_it;
+  }
+  public Memory addI_like_it() {
+    this.i_like_it = this.i_like_it + 1;
+    return this;
+  }
+  public Memory setI_like_it(int i_like_it) {
+    this.i_like_it = i_like_it;
+    return this;
+  }
+
+  public int getMake_me_meditate() {
+    return make_me_meditate;
+  }
+
+  public Memory setMake_me_meditate(int make_meditate) {
+    this.make_me_meditate = make_meditate;
+    return this;
+  }
+
+  public Memory addMake_me_meditate(){
+    this.make_me_meditate = this.make_me_meditate + 1;
+    return this;
+  }
+
+  public int getSo_sad() {
+    return so_sad;
+  }
+
+  public Memory setSo_sad(int so_sad) {
+    this.so_sad = so_sad;
+    return this;
+  }
+
+  public Memory addSo_sad(){
+    this.so_sad = this.so_sad + 1;
     return this;
   }
 }

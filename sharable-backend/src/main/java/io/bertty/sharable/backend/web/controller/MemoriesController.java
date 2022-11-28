@@ -73,6 +73,29 @@ public class MemoriesController {
     return ResponseEntity.ok().body(memory);
   }
 
+  @PostMapping(value = "/{id}/counter/{name}")
+  public ResponseEntity<Memory> addComment(
+      @PathVariable String id,
+      @PathVariable String name
+  ){
+    Memory memory = this.repository.findById(id).get();
+    switch (name){
+      case "i_like_it":
+        memory.addI_like_it();
+        break;
+      case "make_me_meditate":
+        memory.addMake_me_meditate();
+        break;
+      case "so_sad":
+        memory.addSo_sad();
+        break;
+      default:
+        return ResponseEntity.ok(memory);
+    }
+    this.repository.save(memory);
+    return ResponseEntity.ok().body(memory);
+  }
+
 
   @GetMapping(value = "/")
   public ResponseEntity<Memory> getRandomMemory(final HttpServletResponse response){

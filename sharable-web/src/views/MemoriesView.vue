@@ -19,14 +19,14 @@
         </div>
         <div class="card-footer ">
           <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-outline-success" style="border-radius: 50%;">
-              <i class="bi bi-balloon-heart-fill" style="font-size: 2.5em"> 32</i>
+            <button @click="like('i_like_it')" type="button" class="btn btn-outline-success" style="border-radius: 50%;">
+              <i class="bi bi-balloon-heart-fill" style="font-size: 2.5em"> {{question.i_like_it}}</i>
             </button>
-            <button type="button" class="btn btn-outline-info" style="border-radius: 50%;">
-              <i class="bi bi-cup-hot-fill" style="font-size: 2.5em">21</i>
+            <button @click="like('make_me_meditate')" type="button" class="btn btn-outline-info" style="border-radius: 50%;">
+              <i class="bi bi-cup-hot-fill" style="font-size: 2.5em">{{question.make_me_meditate}}</i>
             </button>
-            <button type="button" class="btn btn-outline-danger" style="border-radius: 50%;">
-              <i class="bi bi-emoji-frown" style="font-size: 2.5em">23</i>
+            <button @click="like('so_sad')" type="button" class="btn btn-outline-danger" style="border-radius: 50%;">
+              <i class="bi bi-emoji-frown" style="font-size: 2.5em">{{question.so_sad}}</i>
             </button>
           </div>
         </div>
@@ -74,7 +74,10 @@ export default defineComponent({
         id: '',
         question: '',
         answer: '',
-        comments: []
+        comments: [],
+        i_like_it: 0,
+        make_me_meditate: 0,
+        so_sad: 0,
       },
       comment: '',
     }
@@ -102,6 +105,15 @@ export default defineComponent({
           response => {
             console.log("response: " + JSON.stringify(response));
             this.question.comments = response.data.comments;
+          }
+      )
+    },
+    like(button:string){
+      let id: string = this.question.id;
+      axios.post("/app/memory/"+id+"/counter/"+button, ).then(
+          response => {
+            console.log("response: " + JSON.stringify(response));
+            this.question = response.data;
           }
       )
     }
