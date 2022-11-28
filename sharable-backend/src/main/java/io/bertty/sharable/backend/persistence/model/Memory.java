@@ -15,6 +15,8 @@ public class Memory implements Serializable {
   private Question question;
   private String Answer;
   private Date timestamp;
+
+  private String token;
   private List<Comment> comments;
 
   public Memory() {
@@ -79,6 +81,15 @@ public class Memory implements Serializable {
       this.comments = new ArrayList<>();
     }
     this.comments.add(comment);
+    return this;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public Memory setToken(String token) {
+    this.token = token;
     return this;
   }
 }

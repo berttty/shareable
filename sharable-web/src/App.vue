@@ -28,7 +28,7 @@ export default defineComponent({
       <div class="flex-fill justify-content-center p-0">
         <ul class="nav nav-tabs justify-content-center">
           <li class="nav-item">
-            <RouterLink class="nav-link" active-link="active" to="/">I want to Answer</RouterLink>
+            <RouterLink class="nav-link" active-link="active" to="/answer">I want to Answer</RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink class="nav-link" active-link="active" to="/memories">Memories</RouterLink>

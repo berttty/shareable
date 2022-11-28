@@ -26,10 +26,19 @@ export default defineComponent({
       )
     },
     save() {
+      let token: string = '';
+      if(this.$route.params.token){
+        token = this.$route.params.token.toString();
+        localStorage.setItem("token", token);
+      }else{
+        token = localStorage.getItem("token") || '';
+      }
+
       let params = {
         'question' : this.question,
         'answer' : this.answer,
-        'time': Date.now(),
+        'token': token,
+        'timestamp': Date.now(),
       }
       axios.post("/app/memory/", params).then(
           response => {
@@ -44,6 +53,14 @@ export default defineComponent({
     window.addEventListener("keydown", function(e) {
       self.counter = self.max - self.answer.length;
     });
+
+    let token: string = '';
+    if(this.$route.params.token){
+      token = this.$route.params.token.toString();
+      localStorage.setItem("token", token);
+    }else{
+      token = localStorage.getItem("token") || '';
+    }
 
     this.getQuestion();
   }

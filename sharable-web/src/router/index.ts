@@ -8,7 +8,7 @@ const router = createRouter({
   linkActiveClass: 'active',
   routes: [
     {
-      path: "/",
+      path: "/answer/:token?",
       name: "answer",
       component: AnswerView,
     },
