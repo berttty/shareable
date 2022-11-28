@@ -72,9 +72,13 @@ export default defineComponent({
     return {
       question: {
         id: '',
-        question: '',
+        question: {
+          question: ''
+        },
         answer: '',
-        comments: [],
+        comments: [{
+          comment: ''
+        }],
         i_like_it: 0,
         make_me_meditate: 0,
         so_sad: 0,

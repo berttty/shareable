@@ -76,17 +76,7 @@ import axios from "axios";
 import {defineComponent, onMounted, ref} from "vue";
 import QrcodeVue from 'qrcode.vue'
 
-//
-// let answer = ref();
-// let query = ref();
-
-
 export default defineComponent({
-  // props: {
-  //   name: { type: String, required: true },
-  //   place: { type: String, required: true },
-  //   date: {type:Date, required: true},
-  // },
   data() {
     return {
       name: '',
@@ -95,7 +85,12 @@ export default defineComponent({
       isGenerated: false,
       value: '',
       size: 300,
-      qrs: []
+      qrs: [{
+        name: '',
+        place: '',
+        id: '',
+        moment_intervention: ''
+      }]
     }
   },
   methods: {
@@ -107,7 +102,6 @@ export default defineComponent({
       }
       axios.post("/app/qr/", params).then(
         response => {
-          console.log("response: " + JSON.stringify(response));
           this.isGenerated = true;
           this.value = this.generateLink(response.data);
         }
@@ -121,7 +115,6 @@ export default defineComponent({
   mounted() {
     axios.get("/app/qr/",).then(
       response => {
-        console.log("data: " + JSON.stringify(response.data));
         this.qrs = response.data;
       }
     )

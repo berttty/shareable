@@ -64,7 +64,10 @@ export default defineComponent({
   data() {
     return {
       question: '',
-      questions: []
+      questions: [{
+        question: '',
+        id: ''
+      }]
     }
   },
   methods: {
@@ -74,7 +77,6 @@ export default defineComponent({
       }
       axios.post("/app/question/", params).then(
           response => {
-            console.log("response: " + JSON.stringify(response));
             this.questions.push(response.data)
           }
       )
@@ -82,7 +84,6 @@ export default defineComponent({
     deleteQuestion(id:string){
       axios.delete("/app/question/"+id).then(
           response => {
-            console.log("response: " + JSON.stringify(response));
             this.questions = this.questions.filter(
               question => question['id'] != id
             )
@@ -93,7 +94,6 @@ export default defineComponent({
   mounted() {
     axios.get("/app/question/all",).then(
         response => {
-          console.log("data: " + JSON.stringify(response.data));
           this.questions = response.data;
         }
     )

@@ -12,7 +12,9 @@ export default defineComponent({
       answer: '',
       max: 240,
       counter: 240,
-      question: {},
+      question: {
+        question: ''
+      },
       questions: []
     }
   },
@@ -79,7 +81,7 @@ export default defineComponent({
   <div class="row justify-content-center">
     <div class="col-md-6 align-self-center">
       <div class="p-2">
-        <h1>{{question['question']}}</h1>
+        <h1>{{question.question}}</h1>
         <form class="mt-2">
           <div class="form-check ps-0">
 
