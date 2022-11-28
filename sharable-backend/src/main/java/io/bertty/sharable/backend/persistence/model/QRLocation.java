@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash("QRLocation")
 public class QRLocation {
   public String id;
+
+  public String name;
   public String place;
   public Date moment_intervention;
 
@@ -19,6 +21,15 @@ public class QRLocation {
 
   public QRLocation setId(String id) {
     this.id = id;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public QRLocation setName(String name) {
+    this.name = name;
     return this;
   }
 

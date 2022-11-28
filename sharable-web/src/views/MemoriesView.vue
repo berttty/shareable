@@ -34,7 +34,6 @@ import {onMounted, ref} from "vue";
 let answer = ref();
 let query = ref();
 
-// initialize menu tree
 onMounted(async () => {
   const { data } = await axios.get("/app/memory",);
   console.log("data: " + JSON.stringify(data));
