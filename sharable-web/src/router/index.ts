@@ -13,7 +13,7 @@ const router = createRouter({
       component: AnswerView,
     },
     {
-      path: "/memories",
+      path: "/memories/:id?",
       name: "memories",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

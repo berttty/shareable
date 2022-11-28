@@ -1,5 +1,14 @@
 <template>
   <div class="row justify-content-center">
+    <div class="col-md-6 align-self-center m-4">
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success" @click="getOther()">
+          <i class="bi bi-arrow-clockwise"> Other Memory</i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
     <div class="col-md-6 align-self-center">
       <div class="card">
         <div class="card-header">
@@ -27,19 +36,51 @@
 
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" >
 import axios from "axios";
-import {onMounted, ref} from "vue";
+import {defineComponent} from "vue";
 
-let answer = ref();
-let query = ref();
+export default defineComponent({
+  data() {
+    return {
+      answer: '',
+      query: {},
+    }
+  },
+  methods: {
+    getMemory(id: string){
+      axios.get("/app/memory/"+id,).then(
+          response => {
+            this.answer = response.data.answer;
+            this.query = response.data.question.question;
+          }
+      )
+    },
+    getOther(){
+      this.getMemory('');
+    },
+    save() {
+      // let params = {
+      //   'question' : this.question,
+      //   'answer' : this.answer,
+      //   'time': Date.now(),
+      // }
+      // axios.post("/app/memory/", params).then(
+      //     response => {
+      //       console.log("response: " + JSON.stringify(response));
+      //     }
+      // )
+    }
+  },
+  mounted() {
+    let id: string = '';
+    if(this.$route.params.id){
+      id = this.$route.params.id.toString();
+    }
+    this.getMemory(id);
+  }
+})
 
-onMounted(async () => {
-  const { data } = await axios.get("/app/memory/",);
-  console.log("data: " + JSON.stringify(data));
-  answer.value = data.answer;
-  query.value = data.questions;
-});
 </script>
 
 <style>

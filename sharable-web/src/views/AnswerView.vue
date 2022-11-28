@@ -1,11 +1,16 @@
 <script lang="ts">
 import axios from "axios";
 import {defineComponent} from "vue";
+import { useRoute } from 'vue-router';
+import router from '@/router';
+
+
 
 export default defineComponent({
   data() {
     return {
-      answer: String,
+      answer: '',
+      max: 240,
       counter: 240,
       question: {},
       questions: []
@@ -21,11 +26,17 @@ export default defineComponent({
       axios.post("/app/memory/", params).then(
           response => {
             console.log("response: " + JSON.stringify(response));
+            router.push("/memories/"+response.data.id);
           }
       )
     }
   },
   mounted() {
+    const self = this
+    window.addEventListener("keydown", function(e) {
+      self.counter = self.max - self.answer.length;
+    });
+
     axios.get("/app/question/",).then(
         response => {
           console.log("data: " + JSON.stringify(response.data));
@@ -50,7 +61,7 @@ export default defineComponent({
 
           </div>
           <div class="d-grid gap-2 pt-2">
-            <button type="submit" class="btn btn-primary" @click="save()">Submit</button>
+            <a class="btn btn-primary" @click="save()">Submit</a>
           </div>
         </form>
       </div>

@@ -1,5 +1,6 @@
 package io.bertty.sharable.backend.web.controller;
 
+import io.bertty.sharable.backend.IDGenerator;
 import io.bertty.sharable.backend.persistence.model.Memory;
 import io.bertty.sharable.backend.persistence.repository.MemoryRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +37,9 @@ public class MemoriesController {
   @PostMapping(value = "/")
   public ResponseEntity<Memory> addMemory(@RequestBody Memory memory2add, final HttpServletResponse response){
     Date now = Date.from(Instant.now());
-    memory2add = memory2add.setId("myide_"+now.toString())
+    memory2add = memory2add.setId(IDGenerator.generate())
                     .setTimestamp(now);
-
     repository.save(memory2add);
-
     return ResponseEntity.ok().body(memory2add);
   }
 
@@ -54,13 +54,10 @@ public class MemoriesController {
     return ResponseEntity.ok().body(list);
   }
 
-  @GetMapping(value = "/count")
-  public ResponseEntity<String> countMemory(final HttpServletResponse response){
-    int size = this.redisTemplate.keys("Memory:*").size();
-
-    this.logger.info(String.valueOf(size));
-    return ResponseEntity.ok().body(""+size);
-
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<Memory> getMemory(@PathVariable String id){
+    Optional<Memory> memory = this.repository.findById(id);
+    return ResponseEntity.ok().body(memory.get());
   }
 
 
