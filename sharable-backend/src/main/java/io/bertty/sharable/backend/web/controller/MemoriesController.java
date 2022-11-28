@@ -15,12 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController(value = "/memory")
+@RequestMapping("/memory/")
 public class MemoriesController {
 
   Logger logger = LoggerFactory.getLogger(MemoriesController.class);
@@ -31,7 +32,7 @@ public class MemoriesController {
   @Autowired
   private RedisTemplate<String, Memory> redisTemplate;
 
-  @PostMapping(value = "/memory")
+  @PostMapping(value = "/")
   public ResponseEntity<Memory> addMemory(@RequestBody Memory memory2add, final HttpServletResponse response){
     Date now = Date.from(Instant.now());
     memory2add = memory2add.setId("myide_"+now.toString())
@@ -42,7 +43,7 @@ public class MemoriesController {
     return ResponseEntity.ok().body(memory2add);
   }
 
-  @GetMapping(value = "/memories")
+  @GetMapping(value = "/all")
   public ResponseEntity<List<Memory>> allMemory(final HttpServletResponse response){
 
     List<Memory> list = StreamSupport.stream(repository.findAll().spliterator(),
@@ -53,7 +54,7 @@ public class MemoriesController {
     return ResponseEntity.ok().body(list);
   }
 
-  @GetMapping(value = "/memories/count")
+  @GetMapping(value = "/count")
   public ResponseEntity<String> countMemory(final HttpServletResponse response){
     int size = this.redisTemplate.keys("Memory:*").size();
 
@@ -63,7 +64,7 @@ public class MemoriesController {
   }
 
 
-  @GetMapping(value = "/memory")
+  @GetMapping(value = "/")
   public ResponseEntity<Memory> getRandomMemory(final HttpServletResponse response){
     String key = getRandomKey();
     Optional<Memory> memory = this.repository.findById(key);
@@ -82,16 +83,5 @@ public class MemoriesController {
     key = key.substring(7);
     return key;
   }
-//
-//
-//  @GetMapping(value = "/{id}/custom-etag")
-//  public ResponseEntity<Memory> get(@PathVariable("id") final Long id,
-//      final HttpServletResponse response) {
-//    final Foo foo = RestPreconditions.checkFound(service.findById(id));
-//
-//    eventPublisher.publishEvent(new SingleResourceRetrievedEvent(this, response));
-//    return ResponseEntity.ok()
-//        .eTag(Long.toString(foo.getVersion()))
-//        .body(foo);
-//  }
+
 }

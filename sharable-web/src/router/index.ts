@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AnswerView from "../views/AnswerView.vue";
+import QRGenerationView from "../views/QRGenerationView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,11 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/MemoriesView.vue"),
+    },
+    {
+      path: "/qr",
+      name: "qr-generation",
+      component: QRGenerationView
     },
   ],
 });
