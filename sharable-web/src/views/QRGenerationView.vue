@@ -56,7 +56,7 @@
                 <td>{{item.place}}</td>
                 <td>{{item.moment_intervention}}</td>
                 <td>
-                  <qrcode-vue :value="item.id" :size="50" level="H" />
+                  <qrcode-vue :value="generateLink(item.id)" :size="50" level="H" />
                 </td>
               </tr>
             </tbody>
@@ -109,11 +109,13 @@ export default defineComponent({
         response => {
           console.log("response: " + JSON.stringify(response));
           this.isGenerated = true;
-          this.value = response.data;
+          this.value = this.generateLink(response.data);
         }
       )
-
-
+    },
+    generateLink(seed:string){
+      //TODO recovery the host from variables
+      return "http://lala.com/"+seed;
     }
   },
   mounted() {
