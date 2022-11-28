@@ -12,10 +12,10 @@
     <div class="col-md-6 align-self-center">
       <div class="card">
         <div class="card-header">
-          <h3>{{query}}</h3>
+          <h3>{{question.question.question}}</h3>
         </div>
         <div class="card-body">
-          {{answer}}
+          {{question.answer}}
         </div>
         <div class="card-footer ">
           <div class="d-flex justify-content-between">
@@ -34,6 +34,33 @@
     </div>
   </div>
 
+  <div class="row justify-content-center">
+    <div class="col-md-6 align-self-center m-4">
+      <div class="card">
+        <div class="card-header">
+          <label for="comment" class="form-label">Add your comment</label>
+          <textarea class="form-control" id="comment" v-model="comment" rows="10" placeholder="write your comment" required></textarea>
+          <div class="d-grid gap-2 pt-2">
+            <a class="btn btn-primary" @click="save()">
+              <i class="bi bi-chat-right-dots"></i> Comment
+            </a>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <h2>Previous comments</h2>
+          <ul class="list-group">
+            <li class="list-group-item" v-for="item in question.comments">
+              {{item.comment}}
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </template>
 
 <script lang="ts" >
@@ -43,33 +70,40 @@ import {defineComponent} from "vue";
 export default defineComponent({
   data() {
     return {
-      answer: '',
-      query: {},
+      question: {
+        id: '',
+        question: '',
+        answer: '',
+        comments: []
+      },
+      comment: '',
     }
   },
   methods: {
     getMemory(id: string){
       axios.get("/app/memory/"+id,).then(
           response => {
-            this.answer = response.data.answer;
-            this.query = response.data.question.question;
+            this.question = response.data;
+            console.log(response.data);
           }
-      )
+      );
+      this.comment = '';
     },
     getOther(){
       this.getMemory('');
     },
     save() {
-      // let params = {
-      //   'question' : this.question,
-      //   'answer' : this.answer,
-      //   'time': Date.now(),
-      // }
-      // axios.post("/app/memory/", params).then(
-      //     response => {
-      //       console.log("response: " + JSON.stringify(response));
-      //     }
-      // )
+      let params = {
+        'comment' : this.comment,
+        'timestamp': Date.now(),
+      }
+      let id: string = this.question.id;
+      axios.post("/app/memory/"+id+"/comment", params).then(
+          response => {
+            console.log("response: " + JSON.stringify(response));
+            this.question.comments = response.data.comments;
+          }
+      )
     }
   },
   mounted() {

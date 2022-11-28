@@ -1,6 +1,7 @@
 package io.bertty.sharable.backend.web.controller;
 
 import io.bertty.sharable.backend.IDGenerator;
+import io.bertty.sharable.backend.persistence.model.Comment;
 import io.bertty.sharable.backend.persistence.model.Memory;
 import io.bertty.sharable.backend.persistence.repository.MemoryRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -58,6 +59,18 @@ public class MemoriesController {
   public ResponseEntity<Memory> getMemory(@PathVariable String id){
     Optional<Memory> memory = this.repository.findById(id);
     return ResponseEntity.ok().body(memory.get());
+  }
+
+  @PostMapping(value = "/{id}/comment")
+  public ResponseEntity<Memory> addComment(
+      @PathVariable String id,
+      @RequestBody Comment comment
+  ){
+    Memory memory = this.repository.findById(id).get();
+    this.repository.save(
+        memory.addComment(comment.setId(IDGenerator.generate()))
+    );
+    return ResponseEntity.ok().body(memory);
   }
 
 
